@@ -1,0 +1,271 @@
+﻿@model Profile.Models.Entities.User
+
+@{
+    ViewData["Title"] = "Profile";
+}
+
+<!-- main container starts -->
+<div class="main-container">
+    <div class="container-fluid bg-secondary mb-3 position-relative py-4 bg-dark">
+        <figure class="background">
+            <img src="~/images/bacuser.png" alt="user image">
+        </figure>
+        <div class="card rounded-0 border-0 mb-3 bg-none col-md-10 col-lg-6 col-xl-4 mx-auto">
+            <div class="card-body  userlist_large">
+                <div class="media">
+                    <figure class="avatar150 rounded-circle mt-3">
+                        <img src="~/images/user1.png" alt="user image" class="mCS_img_loaded">
+                    </figure>
+                    <div class="media-body">
+                        <h4 class="mt-0">@Model.FirstName @Model.LastName</h4>
+                        <p class="text-secondary">Age : @Model.Age | Gender : @Model.Gender.ToString()</p>
+                        @*<p class="mb-0 text-secondary">
+                            Bootstrap template design is HTML template based on Bootstrap 4.1 framework. This html template can be used in
+                            various business domains like Manufacturing, inventory, IT, administration etc.
+                        </p>*@
+                    </div>
+                </div>
+            </div>
+            @*<div class="card-footer bg-none">
+                <div class="row">
+                    <div class="col">
+                        <div class="media media-sm">
+                            <div class="media-body text-center">
+                                <h4 class="mb-0">263564</h4>
+                                <a href="#" class="text-primary">Follower</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="media media-sm">
+                            <div class="media-body text-center">
+                                <h4 class="mb-0">2635</h4>
+                                <a href="#" class="text-primary">Following</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="media media-sm">
+                            <div class="media-body text-center">
+                                <h4 class="mb-0">2635k</h4>
+                                <a href="#" class="text-primary">Posts</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>*@
+        </div>
+    </div>
+
+    <!-- Begin page content -->
+    <div class="container">
+
+        <div class="row">
+            @*<div class="col-12 col-md-7 col-lg-8  order-md-1">              
+                
+                <div class="card rounded-0 border-0 mb-3">
+                    <div class="card-header">
+                        <div class="row">
+                            <div class="col-12">
+                                <h5 class="card-title">
+                                    <i class="icon fa fa-thumbs-up text-primary mr-2"></i>Recommandation
+                                </h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-12 col-md-12 col-lg-6">
+                                <div class="card rounded-0 mb-3">
+                                    <div class="card-body userlist_large">
+                                        <h4 class="text-center f-light">
+                                            #1 Design Quality
+                                            <br>Admin Dashboard template
+                                        </h4>
+                                        <div class="media">
+                                            <br>
+                                            <div class="mb-0 lead">
+                                                Bootstrap template design is HTML template based on Bootstrap 4.1 framework. This html template can be used
+                                                in various business domains like Manufacturing, inventory, IT, administration etc.
+                                            </div>
+                                            <br>
+                                            <h5 class="text-warning my-1 w-100">
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star-half-o"></i>
+                                            </h5>
+                                            <div class="circle-profile circle-profile-sm mb-0">
+                                                <div class="line">
+                                                    <hr>
+                                                </div>
+                                                <figure class="avatar60 rounded-circle mt-3">
+                                                    <img src="../assets/img/user4.png" alt="user image" class="mCS_img_loaded">
+                                                </figure>
+                                            </div>
+                                            <div class="media-body">
+                                                <h4 class="mt-0">John Doe</h4>
+                                                <p class="mb-0">
+                                                    <i class="fa fa-building-o"></i> VP, Maxartkiller Co. Ltd., India
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-12 col-lg-6">
+                                <div class="card rounded-0 mb-3">
+                                    <div class="card-body userlist_large">
+                                        <h4 class="text-center f-light">
+                                            #1 Design Quality
+                                            <br>Admin Dashboard template
+                                        </h4>
+                                        <div class="media">
+                                            <br>
+                                            <div class="mb-0 lead">
+                                                Bootstrap template design is HTML template based on Bootstrap 4.1 framework. This html template can be used
+                                                in various business domains like Manufacturing, inventory, IT, administration etc.
+                                            </div>
+                                            <br>
+                                            <h5 class="text-warning my-1 w-100">
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star-half-o"></i>
+                                            </h5>
+                                            <div class="circle-profile circle-profile-sm mb-0">
+                                                <div class="line">
+                                                    <hr>
+                                                </div>
+                                                <figure class="avatar60 rounded-circle mt-3">
+                                                    <img src="../assets/img/user3.png" alt="user image" class="mCS_img_loaded">
+                                                </figure>
+                                            </div>
+                                            <div class="media-body">
+                                                <h4 class="mt-0">Arti Shah</h4>
+                                                <p class="mb-0">
+                                                    <i class="fa fa-building-o"></i> CEO, Maxartkiller Co. Ltd., India
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+
+            </div>*@
+            <div class="col-12 col-md-5 col-lg-4">
+                <div class="card rounded-0 border-0 mb-3">
+                    <div class="card-header">
+                        <div class="row">
+                            <div class="col-12">
+                                <h5 class="card-title">Profile Information</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body  p-0">
+                        <div class="list-unstyled userlist ">
+                            <div class="item new-item active">
+                                <a class="media py-2" href="#">
+                                    <div class="media-body">
+                                        <h5 class="time-title">
+                                            FullName : <b>@Model.FirstName @Model.LastName</b>
+                                        </h5>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="item new-item active">
+                                <a class="media py-2" href="#">
+                                    <div class="media-body">
+                                        <h5 class="time-title">
+                                            Age : <b>@Model.Age</b>
+                                        </h5>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="item new-item active">
+                                <a class="media py-2" href="#">
+                                    <div class="media-body">
+                                        <h5 class="time-title">
+                                            Gender : <b>@Model.Gender</b>
+                                        </h5>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="item new-item active">
+                                <a class="media py-2" href="#">
+                                    <div class="media-body">
+                                        <h5 class="time-title">
+                                            Time Created : <b>@Model.TimeCreated.ToShortDateString()</b>
+                                        </h5>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="item new-item active">
+                                <a class="media py-2" href="#">
+                                    <div class="media-body">
+                                        <h5 class="time-title">
+                                            National Code : <b>@Model.NationalCode</b>
+                                        </h5>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="item new-item active">
+                                <a class="media py-2" href="#">
+                                    <div class="media-body">
+                                        <h5 class="time-title">
+                                            Provice : <b>@Model.Province</b>
+                                        </h5>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="item new-item active">
+                                <a class="media py-2" href="#">
+                                    <div class="media-body">
+                                        <h5 class="time-title">
+                                            City : <b>@Model.City</b>
+                                        </h5>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="item new-item active">
+                                <a class="media py-2" href="#">
+                                    <div class="media-body">
+                                        <h5 class="time-title">
+                                            Mobile : <b>@Model.Mobile</b>
+                                        </h5>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="item new-item active">
+                                <a class="media py-2" href="#">
+                                    <div class="media-body">
+                                        <h5 class="time-title">
+                                            Time Edited : <b>@Model.TimeEdit.ToShortDateString()</b>
+                                        </h5>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="item new-item active">
+                                <a class="media py-2" href="#">
+                                    <div class="media-body">
+                                        <h5 class="time-title">
+                                            State : <b>@Model.UserState</b>
+                                        </h5>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+<!-- main container ends -->

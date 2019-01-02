@@ -1,0 +1,83 @@
+﻿@model Profile.Models.Entities.User
+
+@{
+    ViewData["Title"] = "EditUser";
+}
+
+<div class="container">
+    <div class="card">
+        <div class="card-header">
+            <label class="card-title danger" for="inputDanger"><strong>Danger State</strong></label>
+        </div>
+        <div class="card-block">
+            <div class="card-body">
+                <form asp-controller="User" asp-action="EditUser" class="needs-validation was-validated" novalidate="">
+
+                    <input type="hidden" asp-for="UserId" />
+                    <input type="hidden" asp-for="TimeCreated" />
+
+                    <div class="form-row">
+                        <div class="col-md-6 mb-3">
+                            <label for="validationTooltip01">First name</label>
+                            <input type="text" asp-for="FirstName" class="form-control position-relative" placeholder="First name">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="validationTooltip02">Last name</label>
+                            <input type="text" asp-for="LastName" class="form-control position-relative" placeholder="Last name">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="validationTooltipUsername">Age</label>
+                            <div class="input-group">
+                                <input type="text" asp-for="Age" class="form-control position-relative" placeholder="Age">
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label for="validationTooltipUsername">Gender</label>
+                            <div class="form-group">
+                                <select asp-for="Gender" asp-items="Html.GetEnumSelectList<Profile.Models.Entities.GenderType>()" class="form-control"></select>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="validationTooltipUsername">NationalCode</label>
+                            <div class="input-group">
+                                <input type="text" asp-for="NationalCode" class="form-control position-relative" placeholder="NationalCode">
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="validationTooltipUsername">Province</label>
+                            <div class="input-group">
+                                <input type="text" asp-for="Province" class="form-control position-relative" placeholder="Province">
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="validationTooltipUsername">City</label>
+                            <div class="input-group">
+                                <input type="text" asp-for="City" class="form-control position-relative" placeholder="City">
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="validationTooltipUsername">Mobile</label>
+                            <div class="input-group">
+                                <input type="text" asp-for="Mobile" class="form-control position-relative" placeholder="Mobile">
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="validationTooltipUsername">UserState</label>
+                            <div class="form-group">
+                                <select asp-for="UserState" class="form-control">
+                                    <option value="1">Active </option>
+                                    <option value="2">Deactive </option>
+                                    <option value="3">Blocked </option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button class="btn btn-primary" type="submit">Edit User</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+

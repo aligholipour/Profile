@@ -1,0 +1,82 @@
+﻿@model List<Profile.Models.Entities.User>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+<!-- main container starts -->
+<div class="main-container">
+
+
+    <!-- Begin page content -->
+    <div class="container">
+        <div class="row">
+            @foreach (var user in Model)
+            {
+
+                <div class="col-sm-12 col-md-6 col-lg-4">
+                    <div class="card rounded-0 border-0 mb-3">
+                        <div class="card-header">
+                            <div class="row">
+                                <div class="col-6">
+                                    <h5 class="card-title">Profile User</h5>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="card-body  userlist_large">
+                            <div class="media">
+                                <figure class="avatar120 rounded-circle mt-3">
+                                    <img src="~/images/user1.png" alt="user image" class="mCS_img_loaded">
+                                </figure>
+                                <div class="media-body">
+                                    <h4 class="mt-0">@user.FirstName @user.LastName</h4>
+                                    <p>Age : @user.Age, Gender : @user.Gender.DisplayName()</p>
+                                    <div class="text-center col-10 d-flex ml-auto mr-auto mt-4">
+                                        <a href="/User/Profile/@user.UserId" class="btn btn-primary col">See Profile</a>
+                                        @*<button class="btn btn-outline-secondary col ml-2">Message</button>*@
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        @*<div class="card-footer">
+                                <div class="row">
+                                    <div class="col-4">
+                                        <div class="media media-sm">
+                                            <i class="align-self-start text-secondary icon fa fa-users"></i>
+                                            <div class="media-body">
+                                                <h5>10k</h5>
+                                                <a href="#">Following</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="media media-sm">
+                                            <i class="align-self-start text-secondary icon fa fa-thumbs-up"></i>
+                                            <div class="media-body">
+                                                <h5>10k</h5>
+                                                <a href="#">Likes</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="media media-sm">
+                                            <i class="align-self-start text-secondary icon fa fa-map-marker"></i>
+                                            <div class="media-body">
+                                                <h5>Banglore</h5>
+                                                <a href="#">India</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>*@
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+<!-- main container ends -->
