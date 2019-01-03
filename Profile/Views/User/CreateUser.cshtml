@@ -40,21 +40,28 @@
                             </div>
                         </div>
                         <div class="col-md-6 mb-3">
-                            <label for="validationTooltipUsername">Province</label>
+                            <label for="validationTooltipUsername">Mobile</label>
                             <div class="input-group">
-                                <input type="text" asp-for="Province" class="form-control position-relative" placeholder="Province">
+                                <input type="text" asp-for="Mobile" class="form-control position-relative" placeholder="Mobile">
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="validationTooltipUsername">Province @*<a href="#" style="background-color:green; padding:2px 15px; font-size:13px; border-radius:5px; color:#fff; text-decoration:none;">Add Province</a>*@</label>
+                            <div class="input-group">
+                                <select id="provinceId" asp-for="Province" class="form-control">
+                                    <option>Select Province</option>
+                                    <option value="Golestan">Golestan</option>
+                                    <option value="Mazandaran">Mazandaran</option>
+                                    <option value="Gilan">Gilan</option>
+                                </select>
+                                @*<input type="text" asp-for="Province" class="form-control position-relative" placeholder="Province">*@
                             </div>
                         </div>
                         <div class="col-md-6 mb-3">
                             <label for="validationTooltipUsername">City</label>
                             <div class="input-group">
-                                <input type="text" asp-for="City" class="form-control position-relative" placeholder="City">
-                            </div>
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <label for="validationTooltipUsername">Mobile</label>
-                            <div class="input-group">
-                                <input type="text" asp-for="Mobile" class="form-control position-relative" placeholder="Mobile">
+                                <input id="cityId" type="text" asp-for="City" class="form-control" />
+                                @*<input type="text" asp-for="City" class="form-control position-relative" placeholder="City">*@
                             </div>
                         </div>
                         <div class="col-md-6 mb-3">
@@ -75,3 +82,23 @@
         </div>
     </div>
 </div>
+
+@section script
+    {
+    <script>
+        $(function () {
+            $("#provinceId").change(function () {
+                var item = $("#provinceId").val();
+                $.ajax({
+                    url: '/User/CityAjax',
+                    data: { province: item },
+                    dataType: 'json',
+                    success: function (city) {
+                        $("#cityId").empty();
+                        $("#cityId").val(city);
+                    }
+                });
+            });
+        });
+    </script>
+}

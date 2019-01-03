@@ -21,53 +21,82 @@
             <div class="card">
                 <div class="card-header">
                     <a href="/User/CreateUser" class="btn btn-primary col-md-2">Create New User</a>
+                    <form asp-action="UserList" asp-controller="User" class="col-12">
+                        <div class="form-row mt-3">
+                            <div class="col-md-3 mb-3">
+                                <div class="row">
+                                    <div class="col-6 col-xl-10">
+                                        <input type="text" name="searchFullname" value="@ViewData["Search"]" class="form-control" placeholder="Search FullName" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3 mb-3 ">
+                                <div class="row">
+                                    <div class="col-6 col-xl-10">
+                                        <select class="form-control" name="sortAge">
+                                            <option value="None">None</option>
+                                            <option value="Up">Age Up</option>
+                                            <option value="Down">Age Down</option>
+                                        </select>
+                                    </div>
+                                    @*<div class="col-2 col-xl-1">
+                                        <button class="btn btn-warning reset-tagging" type="submit">Sort</button>
+                                    </div>*@
+                                </div>
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <div class="row">
+                                    <div class="col-6 col-xl-10">
+                                        <select class="form-control" name="sortName">
+                                            <option value="sortName">Sort Name</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-2 col-xl-1">
+                                        <button class="btn btn-warning reset-tagging" type="submit">Submit</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
                     
-                    <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
-                    <div class="heading-elements">
-                        <ul class="list-inline mb-0">
-                            <li><a data-action="collapse"><i class="ft-minus"></i></a></li>
-                            <li><a data-action="reload"><i class="ft-rotate-cw"></i></a></li>
-                            <li><a data-action="expand"><i class="ft-maximize"></i></a></li>
-                            <li><a data-action="close"><i class="ft-x"></i></a></li>
-                        </ul>
-                    </div>
                 </div>
-                <div class="card-content collapse show">
-                    <div class="table-responsive">
-                        <table class="table table-hover mb-0">
-                            <thead>
+            </div>
+            <div class="card-content collapse show col-12" style="background-color:#fff;">
+                <div class="table-responsive">
+                    <table class="table table-hover mb-0">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>First Name</th>
+                                <th>Last Name</th>
+                                <th>Age</th>
+                                <th>Gender</th>
+                                <th>Time Created</th>
+                                <th>Info</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var user in Model)
+                            {
                                 <tr>
-                                    <th>#</th>
-                                    <th>First Name</th>
-                                    <th>Last Name</th>
-                                    <th>Age</th>
-                                    <th>Gender</th>
-                                    <th>Time Created</th>
-                                    <th>Info</th>
+                                    <th scope="row">@i</th>
+                                    <td>@user.FirstName</td>
+                                    <td>@user.LastName</td>
+                                    <td>@user.Age</td>
+                                    <td>@user.Gender.DisplayName()</td>
+                                    <td>@user.TimeCreated</td>
+                                    <td>
+                                        <a href="/User/EditUser/@user.UserId" class="btn btn-sm btn-outline-primary">Edit</a>
+                                        <a href="/User/DeleteUser/@user.UserId" class="btn btn-sm btn-outline-danger">Delete</a>
+                                    </td>
                                 </tr>
-                            </thead>
-                            <tbody>
-                                @foreach (var user in Model)
-                                {
-                                    <tr>
-                                        <th scope="row">@i</th>
-                                        <td>@user.FirstName</td>
-                                        <td>@user.LastName</td>
-                                        <td>@user.Age</td>
-                                        <td>@user.Gender.DisplayName()</td>
-                                        <td>@user.TimeCreated</td>
-                                        <td>
-                                            <a href="/User/EditUser/@user.UserId" class="btn btn-sm btn-outline-primary">Edit</a>
-                                            <a href="/User/DeleteUser/@user.UserId" class="btn btn-sm btn-outline-danger">Delete</a>
-                                        </td>
-                                    </tr>
-                                    i++;
-                                }
-                            </tbody>
-                        </table>
-                    </div>
+                                i++;
+                            }
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
+
     </div>
 </div>
