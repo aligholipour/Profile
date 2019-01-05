@@ -33,10 +33,7 @@
                             <div class="col-md-3 mb-3 ">
                                 <div class="row">
                                     <div class="col-6 col-xl-10">
-                                        <select class="form-control" name="sortAge">
-                                            <option value="None">None</option>
-                                            <option value="Up">Age Up</option>
-                                            <option value="Down">Age Down</option>
+                                        <select class="form-control" asp-items="Html.GetEnumSelectList<Profile.Models.Enums.SortType>()" name="sortType">
                                         </select>
                                     </div>
                                     @*<div class="col-2 col-xl-1">
@@ -47,8 +44,7 @@
                             <div class="col-md-3 mb-3">
                                 <div class="row">
                                     <div class="col-6 col-xl-10">
-                                        <select class="form-control" name="sortName">
-                                            <option value="sortName">Sort Name</option>
+                                        <select class="form-control" asp-items="Html.GetEnumSelectList<Profile.Models.Enums.OrderType>()" name="orderType">
                                         </select>
                                     </div>
                                     <div class="col-2 col-xl-1">

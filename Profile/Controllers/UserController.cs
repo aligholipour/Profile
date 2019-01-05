@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Profile.Models;
 using Profile.Models.Entities;
+using Profile.Models.Enums;
 
 namespace Profile.Controllers
 {
@@ -18,9 +19,10 @@ namespace Profile.Controllers
             _context = context;
         }
 
-        public IActionResult UserList(string searchFullname = "", string sortAge = "", string sortName = "")
+        public IActionResult UserList(string searchFullname = "", OrderType orderType = OrderType.None, SortType sortType = SortType.None)
         {
-            IEnumerable<User> model;
+            IEnumerable<User> model = _context.Users;
+
 
             if (string.IsNullOrEmpty(searchFullname))
             {
@@ -28,37 +30,48 @@ namespace Profile.Controllers
             }
             else
             {
-                model = _context.Users
+                model = model
                     .Where(u => u.FirstName.Contains(searchFullname) || u.LastName.Contains(searchFullname));
             }
 
-            switch (sortAge)
+
+            switch (sortType)
             {
-                case "None":
-                    model = _context.Users;
+                case SortType.None:
                     break;
 
-                case "Up":
-                    model = _context.Users.OrderBy(u => u.Age);
+                case SortType.Age:
+                    model = model.OrderBy(u => u.Age);
                     break;
 
-                case "Down":
-                    model = _context.Users.OrderByDescending(u => u.Age);
+                case SortType.Name:
+                    model = model.OrderBy(u => u.FirstName);
+                    break;
+
+                default:
                     break;
             }
 
-            if (string.IsNullOrEmpty(sortName))
+            switch (orderType)
             {
-                model = _context.Users;
-            }
-            else
-            {
-                model = _context.Users.OrderBy(u => u.FirstName);
+                case OrderType.None:
+                    break;
+
+                case OrderType.Up:
+                    break;
+
+                case OrderType.Down:
+                    model = model.Reverse();
+                    break;
+
+                default:
+                    break;
             }
 
             ViewData["Search"] = searchFullname;
             ViewData["Sort"] = sortAge;
-            return View(model);
+            ViewBag.Sort = sortAge;
+            return View(model.ToList());
         }
 
         public IActionResult CreateUser()
@@ -144,7 +157,7 @@ namespace Profile.Controllers
                     break;
 
                 case "Gilan":
-                    model = "Lahijan";
+                    model = "Rasht";
                     break;
 
                 default:
