@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Profile.Models;
 using Profile.Models.Entities;
 using Profile.Models.Enums;
+using Profile.Models.ViewModels;
 
 namespace Profile.Controllers
 {
@@ -69,9 +70,16 @@ namespace Profile.Controllers
             }
 
             ViewData["Search"] = searchFullname;
-            ViewData["Sort"] = sortAge;
-            ViewBag.Sort = sortAge;
-            return View(model.ToList());
+
+            var vm = new UserViewModel()
+            {
+                Users = model.ToList(),
+                OrderType = orderType,
+                SortType = sortType,
+                SearchFullname = searchFullname
+            };
+
+            return View(vm);
         }
 
         public IActionResult CreateUser()

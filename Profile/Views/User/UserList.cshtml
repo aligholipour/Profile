@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Profile.Models.Entities.User>
+﻿@model Profile.Models.ViewModels.UserViewModel
 
 @{
     ViewData["Title"] = "UserList";
@@ -26,14 +26,14 @@
                             <div class="col-md-3 mb-3">
                                 <div class="row">
                                     <div class="col-6 col-xl-10">
-                                        <input type="text" name="searchFullname" value="@ViewData["Search"]" class="form-control" placeholder="Search FullName" />
+                                        <input type="text" asp-for="SearchFullname" class="form-control" placeholder="Search FullName" />
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-3 mb-3 ">
                                 <div class="row">
                                     <div class="col-6 col-xl-10">
-                                        <select class="form-control" asp-items="Html.GetEnumSelectList<Profile.Models.Enums.SortType>()" name="sortType">
+                                        <select class="form-control" asp-for="SortType" asp-items="Html.GetEnumSelectList<Profile.Models.Enums.SortType>()" name="sortType">
                                         </select>
                                     </div>
                                     @*<div class="col-2 col-xl-1">
@@ -44,7 +44,7 @@
                             <div class="col-md-3 mb-3">
                                 <div class="row">
                                     <div class="col-6 col-xl-10">
-                                        <select class="form-control" asp-items="Html.GetEnumSelectList<Profile.Models.Enums.OrderType>()" name="orderType">
+                                        <select class="form-control" asp-for="OrderType" asp-items="Html.GetEnumSelectList<Profile.Models.Enums.OrderType>()" name="orderType">
                                         </select>
                                     </div>
                                     <div class="col-2 col-xl-1">
@@ -72,7 +72,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach (var user in Model)
+                            @foreach (var user in Model.Users)
                             {
                                 <tr>
                                     <th scope="row">@i</th>
