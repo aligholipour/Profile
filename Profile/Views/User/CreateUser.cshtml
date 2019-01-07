@@ -11,7 +11,7 @@
         </div>
         <div class="card-block">
             <div class="card-body">
-                <form asp-controller="User" asp-action="CreateUser" class="needs-validation was-validated" novalidate="">
+                <form asp-controller="User" asp-action="CreateUser" class="needs-validation was-validated" enctype="multipart/form-data">
                     <div class="form-row">
                         <div class="col-md-6 mb-3">
                             <label for="validationTooltip01">First name</label>
@@ -48,11 +48,11 @@
                         <div class="col-md-6 mb-3">
                             <label for="validationTooltipUsername">Province @*<a href="#" style="background-color:green; padding:2px 15px; font-size:13px; border-radius:5px; color:#fff; text-decoration:none;">Add Province</a>*@</label>
                             <div class="input-group">
-                                <select id="provinceId" asp-for="Province" class="form-control">
+                                <select id="provinceId" asp-for="Province" asp-items="@(ViewData["Province"] as SelectList)" class="form-control">
                                     <option>Select Province</option>
-                                    <option value="Golestan">Golestan</option>
-                                    <option value="Mazandaran">Mazandaran</option>
-                                    <option value="Gilan">Gilan</option>
+                                    @*<option value="Golestan">Golestan</option>
+                                        <option value="Mazandaran">Mazandaran</option>
+                                        <option value="Gilan">Gilan</option>*@
                                 </select>
                                 @*<input type="text" asp-for="Province" class="form-control position-relative" placeholder="Province">*@
                             </div>
@@ -60,8 +60,8 @@
                         <div class="col-md-6 mb-3">
                             <label for="validationTooltipUsername">City</label>
                             <div class="input-group">
-                                <input id="cityId" type="text" asp-for="City" class="form-control" />
-                                @*<input type="text" asp-for="City" class="form-control position-relative" placeholder="City">*@
+                                @*<input id="cityId" type="text" asp-for="City" class="form-control" />*@
+                                <select id="cityId" asp-for="City" class="form-control"></select>
                             </div>
                         </div>
                         <div class="col-md-6 mb-3">
@@ -72,6 +72,12 @@
                                     <option value="2">Deactive </option>
                                     <option value="3">Blocked </option>
                                 </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="validationTooltipUsername">UserState</label>
+                            <div class="form-group">
+                                <input type="file" asp-for="Image" name="Img" class="form-control" />
                             </div>
                         </div>
                     </div>
@@ -90,12 +96,13 @@
             $("#provinceId").change(function () {
                 var item = $("#provinceId").val();
                 $.ajax({
-                    url: '/User/CityAjax',
-                    data: { province: item },
-                    dataType: 'json',
-                    success: function (city) {
+                    url: '/User/CityAjax/' + item,
+                    method: "GET",
+                    success: function (data) {
                         $("#cityId").empty();
-                        $("#cityId").val(city);
+                        for (var i = 0; i < data.length; i++) {
+                            $("#cityId").append("<option value='" + data[i].cityId + "'>" + data[i].cityName + "</option>")
+                        }
                     }
                 });
             });

@@ -20,6 +20,7 @@ namespace Profile.Models.Entities
         public string Mobile { get; set; }
         public DateTime TimeEdit { get; set; }
         public string UserState { get; set; }
+        public string Image { get; set; }
     }
 
     public enum GenderType

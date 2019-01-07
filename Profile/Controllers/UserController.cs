@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Profile.Models;
@@ -20,10 +23,15 @@ namespace Profile.Controllers
             _context = context;
         }
 
-        public IActionResult UserList(string searchFullname = "", OrderType orderType = OrderType.None, SortType sortType = SortType.None)
+        public IActionResult UserList(int pageIndex = 1, int pageSize = 3,
+            string searchFullname = "",
+            OrderType orderType = OrderType.None,
+            SortType sortType = SortType.None)
         {
             IEnumerable<User> model = _context.Users;
 
+            //var modelCount = model.Count();
+            //model = model.Skip((pageIndex - 1) * pageSize).Take(pageSize);
 
             if (string.IsNullOrEmpty(searchFullname))
             {
@@ -76,7 +84,7 @@ namespace Profile.Controllers
                 Users = model.ToList(),
                 OrderType = orderType,
                 SortType = sortType,
-                SearchFullname = searchFullname
+                SearchFullname = searchFullname,
             };
 
             return View(vm);
@@ -84,14 +92,40 @@ namespace Profile.Controllers
 
         public IActionResult CreateUser()
         {
+            var province = _context.provinces.Select(p => new SelectListItem()
+            {
+                Text = p.ProvinceName,
+                Value = p.ProvinceId.ToString()
+            }).ToList();
+
+            //var city = _context.cities.Select(p => new SelectListItem()
+            //{
+            //    Text = p.CityName,
+            //    Value = p.CityId.ToString()
+            //}).ToList();
+
+            ViewData["Province"] = new SelectList(province, "Value", "Text");
+            //ViewData["Cities"] = new SelectList(city, "Value", "Text");
+
             return View();
         }
 
         [HttpPost]
-        public IActionResult CreateUser(User user)
+        public IActionResult CreateUser(User user, IFormFile Img)
         {
             user.TimeCreated = DateTime.Now;
             user.TimeEdit = DateTime.Now;
+
+            // Upload Image
+            if (Img != null || Img.Length > 0)
+            {
+                var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images", Img.FileName);
+                using (var stream = new FileStream(path, FileMode.Create))
+                {
+                    Img.CopyTo(stream);
+                }
+            }
+
             switch (user.UserState)
             {
                 case "1":
@@ -104,6 +138,8 @@ namespace Profile.Controllers
                     user.UserState = "Blocked";
                     break;
             }
+
+            user.Image = Img.FileName;
             _context.Users.Add(user);
             _context.SaveChanges();
             return RedirectToAction("UserList");
@@ -116,9 +152,25 @@ namespace Profile.Controllers
         }
 
         [HttpPost]
-        public IActionResult EditUser(User user)
+        public IActionResult EditUser(User user, IFormFile Img)
         {
             user.TimeEdit = DateTime.Now;
+
+            // Upload Image
+            if (Img == null || Img.Length == 0)
+            {
+                user.Image = user.Image;
+            }
+            else
+            {
+                var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images", Img.FileName);
+                using (var stream = new FileStream(path, FileMode.Create))
+                {
+                    Img.CopyTo(stream);
+                    user.Image = Img.FileName;
+                }
+            }
+
             switch (user.UserState)
             {
                 case "1":
@@ -150,28 +202,21 @@ namespace Profile.Controllers
             return View(findUser);
         }
 
-        public IActionResult CityAjax(string province)
+        public IActionResult CityAjax(int id)
         {
-            string model = "";
+            var cities = _context.cities.Where(a => a.ProvinceId == id).ToList();
 
-            switch (province)
-            {
-                case "Golestan":
-                    model = "Gorgan";
-                    break;
+            //List<SelectListItem> city = new List<SelectListItem>();
+            //foreach (var item in cities)
+            //{
+            //    city.Add(new SelectListItem()
+            //    {
+            //        Value = item.CityId.ToString(),
+            //        Text = item.CityName
+            //    });
+            //}
 
-                case "Mazandaran":
-                    model = "Sari";
-                    break;
-
-                case "Gilan":
-                    model = "Rasht";
-                    break;
-
-                default:
-                    break;
-            }
-            return Json(model);
+            return Ok(cities);
         }
     }
 }

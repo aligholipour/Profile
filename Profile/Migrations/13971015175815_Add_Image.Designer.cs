@@ -2,47 +2,21 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Profile.Models;
 
 namespace Profile.Migrations
 {
     [DbContext(typeof(ProjectDbContext))]
-    partial class ProjectDbContextModelSnapshot : ModelSnapshot
+    [Migration("13971015175815_Add_Image")]
+    partial class Add_Image
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "2.2.0-rtm-35687");
-
-            modelBuilder.Entity("Profile.Models.Entities.City", b =>
-                {
-                    b.Property<int>("CityId")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("CityName");
-
-                    b.Property<int?>("ProvinceId");
-
-                    b.HasKey("CityId");
-
-                    b.HasIndex("ProvinceId");
-
-                    b.ToTable("cities");
-                });
-
-            modelBuilder.Entity("Profile.Models.Entities.Province", b =>
-                {
-                    b.Property<int>("ProvinceId")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("ProvinceName");
-
-                    b.HasKey("ProvinceId");
-
-                    b.ToTable("provinces");
-                });
 
             modelBuilder.Entity("Profile.Models.Entities.User", b =>
                 {
@@ -76,13 +50,6 @@ namespace Profile.Migrations
                     b.HasKey("UserId");
 
                     b.ToTable("Users");
-                });
-
-            modelBuilder.Entity("Profile.Models.Entities.City", b =>
-                {
-                    b.HasOne("Profile.Models.Entities.Province")
-                        .WithMany("Cities")
-                        .HasForeignKey("ProvinceId");
                 });
 #pragma warning restore 612, 618
         }

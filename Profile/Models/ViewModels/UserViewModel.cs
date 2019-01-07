@@ -1,4 +1,5 @@
-﻿using Profile.Models.Entities;
+﻿using Microsoft.AspNetCore.Http;
+using Profile.Models.Entities;
 using Profile.Models.Enums;
 using System;
 using System.Collections.Generic;

@@ -13,6 +13,8 @@ namespace Profile.Models
         {
         }
         public DbSet<User> Users { get; set; }
+        public DbSet<Province> provinces { get; set; }
+        public DbSet<City> cities { get; set; }
     }
 
 }
