@@ -92,6 +92,12 @@
                     </table>
                 </div>
             </div>
+
+            @for (int p = 1; p < Model.pageCount + 2; p++)
+            {
+                <a asp-action="UserList" asp-route-pageIndex="@p" class="btn btn-light">@p</a>
+            }
+
         </div>
 
     </div>

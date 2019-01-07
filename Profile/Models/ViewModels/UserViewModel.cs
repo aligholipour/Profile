@@ -14,5 +14,8 @@ namespace Profile.Models.ViewModels
         public OrderType OrderType { get; set; }
         public SortType SortType { get; set; }
         public string SearchFullname { get; set; }
+        public int pageIndex { get; set; }
+        public int pageSize { get; set; }
+        public int pageCount { get; set; }
     }
 }

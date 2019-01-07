@@ -23,15 +23,17 @@ namespace Profile.Controllers
             _context = context;
         }
 
-        public IActionResult UserList(int pageIndex = 1, int pageSize = 3,
+        public IActionResult UserList(int pageIndex = 1,
             string searchFullname = "",
             OrderType orderType = OrderType.None,
             SortType sortType = SortType.None)
         {
             IEnumerable<User> model = _context.Users;
 
-            //var modelCount = model.Count();
-            //model = model.Skip((pageIndex - 1) * pageSize).Take(pageSize);
+            const int pageSize = 2;
+            var modelCount = model.Count();
+            var pageCount = modelCount / pageSize;
+            
 
             if (string.IsNullOrEmpty(searchFullname))
             {
@@ -42,7 +44,6 @@ namespace Profile.Controllers
                 model = model
                     .Where(u => u.FirstName.Contains(searchFullname) || u.LastName.Contains(searchFullname));
             }
-
 
             switch (sortType)
             {
@@ -79,14 +80,18 @@ namespace Profile.Controllers
 
             ViewData["Search"] = searchFullname;
 
+            model = model.Skip((pageIndex - 1) * pageSize).Take(pageSize);
+
             var vm = new UserViewModel()
             {
                 Users = model.ToList(),
                 OrderType = orderType,
                 SortType = sortType,
                 SearchFullname = searchFullname,
+                pageIndex = 1,
+                pageSize = 2,
+                pageCount = pageCount
             };
-
             return View(vm);
         }
 
@@ -98,14 +103,7 @@ namespace Profile.Controllers
                 Value = p.ProvinceId.ToString()
             }).ToList();
 
-            //var city = _context.cities.Select(p => new SelectListItem()
-            //{
-            //    Text = p.CityName,
-            //    Value = p.CityId.ToString()
-            //}).ToList();
-
             ViewData["Province"] = new SelectList(province, "Value", "Text");
-            //ViewData["Cities"] = new SelectList(city, "Value", "Text");
 
             return View();
         }
@@ -147,6 +145,21 @@ namespace Profile.Controllers
 
         public IActionResult EditUser(int id)
         {
+            var province = _context.provinces.Select(p => new SelectListItem()
+            {
+                Text = p.ProvinceName,
+                Value = p.ProvinceId.ToString()
+            }).ToList();
+
+            var city = _context.cities.Select(p => new SelectListItem()
+            {
+                Text = p.CityName,
+                Value = p.CityId.ToString()
+            }).ToList();
+
+            ViewData["Province"] = new SelectList(province, "Value", "Text");
+            ViewData["city"] = new SelectList(city, "Value", "Text");
+
             var findUser = _context.Users.Find(id);
             return View(findUser);
         }
@@ -205,16 +218,6 @@ namespace Profile.Controllers
         public IActionResult CityAjax(int id)
         {
             var cities = _context.cities.Where(a => a.ProvinceId == id).ToList();
-
-            //List<SelectListItem> city = new List<SelectListItem>();
-            //foreach (var item in cities)
-            //{
-            //    city.Add(new SelectListItem()
-            //    {
-            //        Value = item.CityId.ToString(),
-            //        Text = item.CityName
-            //    });
-            //}
 
             return Ok(cities);
         }
